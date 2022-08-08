@@ -1,0 +1,370 @@
+/*
+ * Empty Stylesheet file.
+ */
+/*
+ * Empty Stylesheet file.
+ */
+
+
+ * {
+	 /*Main Theme Color*/
+        MainColor:#010365;
+        BackgroundGradient:  linear-gradient(#FE9A9F 0%, #FFFFFF 50%, #FFFFFF 30%, #75AAFF 93%);
+
+	 /*Button Theme*/
+         ButtonGradient:linear-gradient(#A00108 , #1A237E  );
+         ButtonHover: linear-gradient(#FBC02D 0% , #FFF176 50% );
+         ButtonFocused: linear-gradient(#29B6F6 0% , #B3E5FC 80% );
+
+     /*Label Theme*/
+        LabelColor: MainColor;
+        LabelGradient: ButtonGradient;
+
+     /*Table Theme*/
+         TableHeader:MainColor;
+         TableSelected: #00ae57;
+         TableText: White;
+         OddRow:#ffdbdd ;
+         OddText:#080f4d ;
+         EvenRow:#FBFCFF ;
+         EvenText:#390003 ;
+
+	 /*Tab Theme*/
+	    TabBackground: linear-gradient(#1A237E , #C2185B );
+	 TBLINE:#FFFFFF;
+
+	 /*Scroll Theme*/
+	 SBACK:#007700;
+	 SBAR:#FDEBEB;
+	 SBUTTON:#FFFFFF;
+
+
+
+
+	 /*TextField Theme*/
+	 /*Theme*/
+	 TFILL:#000000;
+TFOCUS:#122B54 ;
+TUNFOCUS:#1976D2 ;
+TTEXT:#1A237E ;
+	 TINPUT:#007700;
+TBACK: #FDF0F1;
+
+
+	 /*Combo Theme*/
+
+	 /*Progress*/
+
+
+
+
+
+	 BUTTON:#007700;
+	 BUTTONX:#007700;
+	 TABLE:#007700;
+	 LABEL:#007700;
+	 BORDER:#FDEBEB;
+	 FOCUS:#555500;
+
+	 UNKNOWN:#FF0000;
+	AQUA:#00FFFF;
+	BLUE:#3939FF;
+	STROKE:#007700;
+
+  
+ }
+ 
+ /*Background Class*/
+
+.mainBackground, .root, .split-pane:horizontal {
+-fx-background-size: cover;
+-fx-background-image2:url("mtn1.png");
+-fx-background-color:  BackgroundGradient;
+}
+
+.alternateBackground{
+ -fx-background-size: cover;
+ -fx-background-color:  BackgroundGradient;
+ }
+
+
+/* Button Class */
+.button {
+   /* -fx-background-image:url("mtn1.png");*/
+    -fx-background-color: ButtonGradient;
+    -fx-background-repeat: no-repeat;
+	-fx-background-size: cover;
+    -fx-text-fill: White;
+	-fx-font-size:13px;
+}
+
+.button:hover {
+   /* -fx-background-image:url("mtn2.png");*/
+    -fx-background-color: ButtonHover;
+	-fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+	-fx-text-fill: MainColor;
+}
+
+.button:focused {
+    /* -fx-background-image:url("ImagesButtonFocus.jpg"); */
+    -fx-background-color: ButtonFocused;
+	-fx-background-size: 100%;
+	-fx-text-fill: MainColor;
+}
+
+
+/* Glyph Class*/
+.glyph-icon{
+	-fx-fill : White;
+	-fx-stroke:MainColor;
+	-fx-font-size:5em;
+}
+
+.glyph-icon2{
+	-fx-fill : White;
+	-fx-stroke:MainColor;
+	-fx-font-size:5em;
+}
+
+.glyph-icon:hover{
+	-fx-fill : MainColor;
+	-fx-stroke: White;
+}
+
+.button:hover .glyph-icon{
+	-fx-fill : MainColor;
+	-fx-stroke: White;
+}
+
+
+/* Label Class */
+.label{
+    -fx-font-size:16px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+}
+
+.MainDate{
+	-fx-font-size:20px;
+	-fx-font-weight:bold;
+}
+
+.MainName{
+	-fx-font-size:27px;
+	-fx-font-weight:Bold;
+}
+
+.MainSubName{
+	-fx-font-size:20px;
+	-fx-text-fill:White;
+	-fx-font-weight:Bold;
+	-fx-background-color: LabelGradient;
+}
+
+.MainSubhead{
+	-fx-font-size:13px;
+	-fx-text-fill:White;
+	-fx-font-weight:Bold;
+	-fx-background-color: LabelGradient;
+}
+
+.saveText{
+	-fx-font-size:16px;
+	-fx-text-fill: #007700;
+}
+
+
+/*Table-View Class*/
+.table-view{
+        -fx-background-color: WHITE;
+}
+.table-column .label{
+    -fx-text-fill :TableText;
+    -fx-background-color :TableHeader;
+}
+
+.table-view:row-selection .column-header-background .filler{
+-fx-background-color : TableHeader;
+
+}
+
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:focused:filled:even,
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:focused:filled:odd
+{
+-fx-background-color :TableSelected;
+}
+
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:odd{
+-fx-background-color : OddRow;
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even{
+-fx-background-color : EvenRow;
+-fx-font-size: 14px;
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even .table-column:filled:even .text{
+-fx-fill : EvenText;
+-fx-font-size: 14px;
+}
+.table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:odd .table-column:filled:odd .text{
+-fx-fill : OddText;
+-fx-font-size: 14px;
+}
+
+
+.borderpane{
+    -fx-border-color: MainColor;
+    -fx-border-width: 2px;
+}
+
+
+.jfx-date-picker:editable .arrow-button .arrow{
+	-fx-background-color : MainColor;
+}
+.jfx-date-picker:editable {
+	-fx-font-size:16px;
+	-jfx-default-color:MainColor;
+}
+
+
+
+
+
+/*TabPane Class*/
+.jfx-tab-pane:top .depth-container .tab-header-area .tab-header-background{
+        -fx-background-color: TabBackground;
+}
+/*jfx-tb-pane*/
+.jfx-tb-pane:top .depth-container .tab-header-area .tab-header-background{
+-fx-background-color: TabBackground;
+-fx-background-image: null ;
+	-fx-background-size: 100%;
+}
+
+.jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab-selected-line{
+-fx-background-color: #FFFFFF ;
+}
+ .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:selected:top .jfx-rippler .tab-container .tab-label .text{
+-fx-background-color: #212121 ;
+-fx-fill: #FAFAFA ;
+
+}
+.jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:top{
+-fx-background-color: ButtonGradient;
+	 -fx-background-size: 100%;
+/*** 	-fx-background-image:url("ImagesTab.jpg"); ***/
+ }
+
+
+/*ScrollPane Class*/
+.scroll-pane .scroll-bar:vertical .track-background,.root .scroll-bar:vertical .track-background, .table-view:row-selection .virtual-flow .scroll-bar:vertical .track-background,
+ .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background,
+ .scroll-pane .scroll-bar:horizontal .track-background,.root .scroll-bar:horizontal .track-background, 
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background 
+{
+-fx-background-color: MainColor ;
+}
+.scroll-pane .scroll-bar:vertical .thumb,.root .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:horizontal .thumb,.root .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb
+{
+-fx-background-color: ButtonFocused ;
+}
+.scroll-pane .scroll-bar:vertical .increment-button,.root .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button, .scroll-bar:vertical .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:vertical .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:vertical .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:vertical .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button,
+.scroll-pane .scroll-bar:horizontal .increment-button,.root .scroll-bar:horizontal .increment-button,
+.scroll-pane .scroll-bar:horizontal .decrement-button, .scroll-bar:horizontal .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .increment-button,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .decrement-button
+{
+-fx-background-color: White ;
+}
+
+	  
+	  
+/*Progress Class*/
+
+.jfx-progress-bar:determinate .bar{
+-fx-background-Color:linear-gradient(#2fbb04 , #103c02) ; ;
+-fx-background-size: 100%;
+}
+	  
+.jfx-progress-bar:determinate .track, .radio-button .radio{
+-fx-background-color: WHITE;
+}
+	  
+.radio-button .text{
+-fx-background-color: #B71C1C ;
+		 -fx-font-size: 16px;
+}
+
+/*Combo Class*/
+.jfx-combo-box{
+	-fx-font-size:14px;
+	-fx-pref-width: 100px;
+	-fx-pref-height: 20px;
+}
+.jfx-combo-box:editable .combo-box-button-container .prompt-text{
+	-fx-font-size:15px;
+}
+.combobox{
+	-fx-font-size:16px;
+	-fx-pref-width: 200px;
+	-fx-pref-height: 20px;
+}
+.comboboxSMALL{
+	-fx-font-size:14px;
+	-fx-pref-width: 150px;
+	-fx-pref-height: 15px;
+}
+
+
+/*Text-Field Class */
+
+.jfx-text-field .text{
+	-fx-font-size:15px;
+}
+.jfx-text-field , .jfx-date-picker:editable .date-picker-display-node{
+/**	-fx-background-color: TBACK ; **/
+	-fx-text-fill: TTEXT;
+	-jfx-focus-color:TFOCUS;
+	-jfx-unfocus-color:TUNFOCUS;
+	-fx-font-size:15px;
+}
+.jfx-small-field{
+	-fx-font-size:12px;
+}
+/*Picker Class */
+.jfx-color-picker .color-label .text, .menu-bar .container .menu:openvertically .label{
+	-fx-fill:black;
+	-fx-font-size: 12px;
+	-fx-text-fill: black;
+}
+
+
+.titled-pane>*.content>AnchorPane {
+-fx-background-color: BackgroundGradient;
+}
+.titled-pane>*.title {
+-fx-background-color: ButtonGradient;
+}
+.first-titled-pane:expanded .title .text, .titled-pane:collapsed .title .text{
+	-fx-fill: white;
+}
+.titled-pane>*.title>*.arrow-button>*.arrow {
+-fx-background-color:white;
+}
+.slider *.thumb {
+-fx-background-color:#004e2c;
+}
+.slider *.track {
+-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #9ccc65 0%, #00351E 100%);
+
+}
+
+
+
+
+	  
+	  
