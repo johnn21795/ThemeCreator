@@ -1,10 +1,3 @@
-/*
- * Empty Stylesheet file.
- */
-/*
- * Empty Stylesheet file.
- */
-
 
  * {
 	 /*Main Theme Color*/
@@ -30,67 +23,40 @@
          EvenText:#390003 ;
 
 	 /*Tab Theme*/
+	    TabForeGround: ButtonGradient;
 	    TabBackground: linear-gradient(#1A237E , #C2185B );
-	 TBLINE:#FFFFFF;
-
-	 /*Scroll Theme*/
-	 SBACK:#007700;
-	 SBAR:#FDEBEB;
-	 SBUTTON:#FFFFFF;
-
-
-
+	    TabText: #FFFFFF;
 
 	 /*TextField Theme*/
-	 /*Theme*/
-	 TFILL:#000000;
-TFOCUS:#122B54 ;
-TUNFOCUS:#1976D2 ;
-TTEXT:#1A237E ;
-	 TINPUT:#007700;
-TBACK: #FDF0F1;
+      	TextFocus:#000000;
+        TextUnFocus:#122B54 ;
+        TextSelected:#000000 ;
 
+     /*Glyph Theme*/
 
-	 /*Combo Theme*/
+        GlyphFill:#FFFFFF;
+        GlyphStroke:#000000 ;
 
-	 /*Progress*/
+     /*Scroll Theme*/
+        ScrollForeGround:#010365;
+        ScrollBackground:#B2EBF2;
 
+     /*Progress Theme*/
+        ProgressGradient: linear-gradient(#2fbb04 , #103c02);
 
-
-
-
-	 BUTTON:#007700;
-	 BUTTONX:#007700;
-	 TABLE:#007700;
-	 LABEL:#007700;
-	 BORDER:#FDEBEB;
-	 FOCUS:#555500;
-
-	 UNKNOWN:#FF0000;
-	AQUA:#00FFFF;
-	BLUE:#3939FF;
-	STROKE:#007700;
-
-  
  }
- 
+
  /*Background Class*/
 
-.mainBackground, .root, .split-pane:horizontal {
+.root, .split-pane:horizontal {
 -fx-background-size: cover;
--fx-background-image2:url("mtn1.png");
+ -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\background2.jpg');  /* BackgroundImage */
 -fx-background-color:  BackgroundGradient;
 }
 
-.alternateBackground{
- -fx-background-size: cover;
- -fx-background-color:  BackgroundGradient;
- }
-
-
 /* Button Class */
 .button {
-   /* -fx-background-image:url("mtn1.png");*/
+ -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\buttonImage2.jpg');  /* ButtonImage */
     -fx-background-color: ButtonGradient;
     -fx-background-repeat: no-repeat;
 	-fx-background-size: cover;
@@ -99,7 +65,7 @@ TBACK: #FDF0F1;
 }
 
 .button:hover {
-   /* -fx-background-image:url("mtn2.png");*/
+  -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\ButHover2.jpg');  /* ButHover */
     -fx-background-color: ButtonHover;
 	-fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -107,7 +73,7 @@ TBACK: #FDF0F1;
 }
 
 .button:focused {
-    /* -fx-background-image:url("ImagesButtonFocus.jpg"); */
+    -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\butFocused2.jpg');  /* ButFocused */
     -fx-background-color: ButtonFocused;
 	-fx-background-size: 100%;
 	-fx-text-fill: MainColor;
@@ -116,25 +82,19 @@ TBACK: #FDF0F1;
 
 /* Glyph Class*/
 .glyph-icon{
-	-fx-fill : White;
-	-fx-stroke:MainColor;
-	-fx-font-size:5em;
-}
-
-.glyph-icon2{
-	-fx-fill : White;
-	-fx-stroke:MainColor;
+	-fx-fill : GlyphFill;
+	-fx-stroke:GlyphStroke;
 	-fx-font-size:5em;
 }
 
 .glyph-icon:hover{
-	-fx-fill : MainColor;
-	-fx-stroke: White;
+	-fx-fill : GlyphFill;
+	-fx-stroke: GlyphStroke;
 }
 
 .button:hover .glyph-icon{
-	-fx-fill : MainColor;
-	-fx-stroke: White;
+	-fx-fill : GlyphStroke;
+	-fx-stroke: GlyphFill;
 }
 
 
@@ -169,12 +129,6 @@ TBACK: #FDF0F1;
 	-fx-background-color: LabelGradient;
 }
 
-.saveText{
-	-fx-font-size:16px;
-	-fx-text-fill: #007700;
-}
-
-
 /*Table-View Class*/
 .table-view{
         -fx-background-color: WHITE;
@@ -200,74 +154,57 @@ TBACK: #FDF0F1;
 }
 .table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even{
 -fx-background-color : EvenRow;
--fx-font-size: 14px;
 }
 .table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:even .table-column:filled:even .text{
 -fx-fill : EvenText;
--fx-font-size: 14px;
+-fx-font-size: 14px; /* TableSize*/
 }
 .table-view:row-selection .virtual-flow .clipped-container .sheet .table-row-cell:filled:odd .table-column:filled:odd .text{
 -fx-fill : OddText;
--fx-font-size: 14px;
+-fx-font-size:  14px; /* TableSize*/
 }
-
-
-.borderpane{
-    -fx-border-color: MainColor;
-    -fx-border-width: 2px;
-}
-
 
 .jfx-date-picker:editable .arrow-button .arrow{
 	-fx-background-color : MainColor;
 }
+
 .jfx-date-picker:editable {
 	-fx-font-size:16px;
 	-jfx-default-color:MainColor;
 }
 
-
-
-
-
 /*TabPane Class*/
 .jfx-tab-pane:top .depth-container .tab-header-area .tab-header-background{
-        -fx-background-color: TabBackground;
+      -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\buttonImage2.jpg'); /*TabBGround */
+       -fx-background-color: TabBackground;
+      -fx-background-size: cover;
+
 }
 /*jfx-tb-pane*/
-.jfx-tb-pane:top .depth-container .tab-header-area .tab-header-background{
--fx-background-color: TabBackground;
--fx-background-image: null ;
-	-fx-background-size: 100%;
-}
-
 .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab-selected-line{
--fx-background-color: #FFFFFF ;
+-fx-background-color: TabText ;
 }
  .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:selected:top .jfx-rippler .tab-container .tab-label .text{
--fx-background-color: #212121 ;
--fx-fill: #FAFAFA ;
-
+    -fx-fill: TabText ;
 }
 .jfx-tab-pane:top .depth-container .tab-header-area .headers-region .tab:top{
--fx-background-color: ButtonGradient;
-	 -fx-background-size: 100%;
-/*** 	-fx-background-image:url("ImagesTab.jpg"); ***/
+    -fx-background-image:url('file:/\/\/C:/\Users/\Public/\ThemeCreator/\buttonImage2.jpg'); /*TabFGround */
+    -fx-background-color: TabForeGround;
+    -fx-background-size: cover;
  }
-
 
 /*ScrollPane Class*/
 .scroll-pane .scroll-bar:vertical .track-background,.root .scroll-bar:vertical .track-background, .table-view:row-selection .virtual-flow .scroll-bar:vertical .track-background,
  .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background,
- .scroll-pane .scroll-bar:horizontal .track-background,.root .scroll-bar:horizontal .track-background, 
-.table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background 
+ .scroll-pane .scroll-bar:horizontal .track-background,.root .scroll-bar:horizontal .track-background,
+.table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .track-background
 {
--fx-background-color: MainColor ;
+-fx-background-color: ScrollBackground ;
 }
 .scroll-pane .scroll-bar:vertical .thumb,.root .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:vertical .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb,
 .scroll-pane .scroll-bar:horizontal .thumb,.root .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb, .table-view:row-selection .virtual-flow .scroll-bar:horizontal .thumb
 {
--fx-background-color: ButtonFocused ;
+-fx-background-color: ScrollForeGround ;
 }
 .scroll-pane .scroll-bar:vertical .increment-button,.root .scroll-bar:vertical .increment-button,
 .scroll-pane .scroll-bar:vertical .decrement-button, .scroll-bar:vertical .decrement-button, .table-view:row-selection .virtual-flow .scroll-bar:vertical .increment-button,
@@ -280,23 +217,18 @@ TBACK: #FDF0F1;
 {
 -fx-background-color: White ;
 }
+.scroll-pane .viewport{
+-fx-background-color: BackgroundGradient;
+}
 
-	  
-	  
 /*Progress Class*/
-
 .jfx-progress-bar:determinate .bar{
--fx-background-Color:linear-gradient(#2fbb04 , #103c02) ; ;
+-fx-background-Color: ProgressGradient;
 -fx-background-size: 100%;
 }
-	  
+
 .jfx-progress-bar:determinate .track, .radio-button .radio{
 -fx-background-color: WHITE;
-}
-	  
-.radio-button .text{
--fx-background-color: #B71C1C ;
-		 -fx-font-size: 16px;
 }
 
 /*Combo Class*/
@@ -304,44 +236,35 @@ TBACK: #FDF0F1;
 	-fx-font-size:14px;
 	-fx-pref-width: 100px;
 	-fx-pref-height: 20px;
+	-jfx-focus-color:TextFocus;
+    -jfx-unfocus-color:TextUnFocus;
+    -fx-font-size:15px;
 }
 .jfx-combo-box:editable .combo-box-button-container .prompt-text{
 	-fx-font-size:15px;
 }
-.combobox{
-	-fx-font-size:16px;
-	-fx-pref-width: 200px;
-	-fx-pref-height: 20px;
+.jfx-combo-box .text{
+    -fx-fill:TextSelected;
 }
-.comboboxSMALL{
-	-fx-font-size:14px;
-	-fx-pref-width: 150px;
-	-fx-pref-height: 15px;
-}
-
 
 /*Text-Field Class */
-
 .jfx-text-field .text{
 	-fx-font-size:15px;
 }
 .jfx-text-field , .jfx-date-picker:editable .date-picker-display-node{
-/**	-fx-background-color: TBACK ; **/
-	-fx-text-fill: TTEXT;
-	-jfx-focus-color:TFOCUS;
-	-jfx-unfocus-color:TUNFOCUS;
+    -jfx-focus-color:TextFocus;
+    -jfx-unfocus-color:TextUnFocus;
+    -fx-text-fill:TextSelected;
 	-fx-font-size:15px;
 }
-.jfx-small-field{
-	-fx-font-size:12px;
-}
+
+/* Other Class */
 /*Picker Class */
 .jfx-color-picker .color-label .text, .menu-bar .container .menu:openvertically .label{
 	-fx-fill:black;
 	-fx-font-size: 12px;
 	-fx-text-fill: black;
 }
-
 
 .titled-pane>*.content>AnchorPane {
 -fx-background-color: BackgroundGradient;
@@ -360,11 +283,9 @@ TBACK: #FDF0F1;
 }
 .slider *.track {
 -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #9ccc65 0%, #00351E 100%);
-
 }
 
-
-
-
-	  
-	  
+.radio-button .text{
+    -fx-background-color: #B71C1C ;
+	-fx-font-size: 16px;
+}
