@@ -1,3 +1,5 @@
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -6,13 +8,17 @@ public class ModelClass {
     private final SimpleStringProperty col1;
     private final SimpleStringProperty col2;
     private final SimpleStringProperty col3;
+    private final SimpleBooleanProperty checked;
 
 
-    public ModelClass(int num, String col1, String col2, String col3){
+
+    public ModelClass(int num, String col1, String col2, String col3, boolean checked){
         this.num = new SimpleIntegerProperty(num);
         this.col1 = new SimpleStringProperty(col1);
         this.col2 = new SimpleStringProperty(col2);
         this.col3 = new SimpleStringProperty(col3);
+        this.checked = new SimpleBooleanProperty(checked);
+
 
 
     }
@@ -45,5 +51,13 @@ public class ModelClass {
         this.col3.set(col3);
     }
 
-
+    public boolean getChecked() {
+        return checked.get();
+    }
+    public void setChecked(boolean checked) {
+        this.checked.set(checked);
+    }
+    public BooleanProperty checkedProperty(){
+        return checked;
+    }
 }

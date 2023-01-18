@@ -2,12 +2,12 @@
  * {
 	 /*Main Theme Color*/
 		MainColor: #3E2723; 
-		BackgroundGradient: linear-gradient(#FFF59D 3%, #FFEB3B 47%, #FDD835 63%,#BF360C 100% ); 
+		BackgroundGradient: linear-gradient(#FFF59D 3%, #FFEB3B 40%, #FDD835 75%,#BF360C 100% );
 
 	 /*Button Theme*/
 		ButtonGradient: linear-gradient(#3E2723 0%, #BF360C 100%, #FFFFFF 0%,#FFFFFF 0% ); 
          ButtonHover: linear-gradient(#FBC02D 0% , #FFF176 50% );
-		ButtonFocused: linear-gradient(#4E342E 0%, #F4511E 100%, #FDD835 0%,#BF360C 0% ); 
+		ButtonFocused: linear-gradient(to top left,#29ffF6 , #B3FFFC 58% );
 
      /*Label Theme*/
         LabelColor: MainColor;
@@ -109,6 +109,22 @@
 	-fx-font-size:20px;
 	-fx-font-weight:bold;
 }
+.boldText{
+    -fx-font-size:16px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+	-fx-font-weight:bold;
+}
+.smallText{
+	-fx-font-size:13px;
+	-fx-text-fill:White;
+}
+.boldSmallText{
+    -fx-font-size:13px;
+    -fx-text-fill: LabelColor ;
+    -fx-wrap-text: true;
+	-fx-font-weight:bold;
+}
 
 .MainName{
 	-fx-font-size:27px;
@@ -164,11 +180,30 @@
 -fx-font-size:  14px; /* TableSize*/
 }
 
-.jfx-date-picker:editable .arrow-button .arrow{
+.jfx-date-picker:editable .arrow-button .arrow
+{
 	-fx-background-color : MainColor;
 }
 
-.jfx-date-picker:editable {
+.jfx-date-picker:editable
+ {
+	-fx-font-size:16px;
+	-jfx-default-color:MainColor;
+}
+.jfx-time-picker:editable
+ {
+	-jfx-default-color:MainColor;
+	-fx-text-fill : White;
+}
+
+.jfx-time-picker:editable .text
+ {
+	-fx-fill : #6b6b6b;
+}
+.jfx-time-picker:editable .arrow-button .jfx-svg-glyph{
+	-jfx-default-color:MainColor;
+}
+.jfx-date-picker {
 	-fx-font-size:16px;
 	-jfx-default-color:MainColor;
 }
@@ -288,4 +323,7 @@
 .radio-button .text{
     -fx-background-color: #B71C1C ;
 	-fx-font-size: 16px;
+}
+.split-pane:horizontal .split-pane-divider{
+	-fx-background-color: TabBackground;
 }

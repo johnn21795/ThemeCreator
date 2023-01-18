@@ -1,29 +1,27 @@
 import com.jfoenix.controls.*;
-import com.sun.javafx.css.StyleCache;
-import com.sun.javafx.css.StyleManager;
-import com.sun.javafx.css.StyleMap;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import sun.swing.ImageCache;
+import javafx.util.Callback;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -51,21 +49,15 @@ public class MainPaneController implements Initializable {
     public VBox TableControls;
     public JFXColorPicker txtColor;
     public JFXColorPicker bckColor;
-    public JFXTextField BckGrad;
     public JFXSlider fntSz;
     public JFXCheckBox isBold;
     public JFXComboBox<String> StyName;
-    public JFXButton StySave;
-    public ScrollPane scrollPane;
     public JFXComboBox<String> comboBox3;
     public JFXComboBox<String> comboBox2;
     public JFXComboBox<String> comboBox1;
     public JFXTextField textField1;
-    public Label saveText1;
     public JFXTextField textField2;
-    public Label saveText2;
     public JFXTextField textField3;
-    public Label saveText3;
     public JFXDatePicker datePicker1;
     public JFXDatePicker datePicker2;
     public JFXDatePicker datePicker3;
@@ -91,13 +83,10 @@ public class MainPaneController implements Initializable {
     public TableColumn<ModelClass, ?> col4;
     public AnchorPane rootPane;
     public JFXTabPane TabPane;
-    public JFXButton StySaveAs;
-    public JFXTextField StyleName;
     public JFXSlider slider6;
     public JFXColorPicker picker6;
     public JFXSlider slider5;
     public JFXColorPicker picker5;
-    public JFXButton AppyToTheme;
     public JFXButton ResBut;
     public JFXCheckBox bckTrans;
     public JFXColorPicker headerColor;
@@ -126,8 +115,8 @@ public class MainPaneController implements Initializable {
     public JFXColorPicker picker8;
     public JFXButton ExportBut;
     public JFXTextField ThemeName;
-    public JFXButton LoadBut;
     public JFXColorPicker mainColor;
+    public TableColumn<ModelClass, Boolean> col5;
     @FXML
     private AnchorPane DesignPane;
 
@@ -213,8 +202,17 @@ public class MainPaneController implements Initializable {
 
 
     static File defaultTheme = new File(System.getProperty("user.home") + "/Desktop/ThemeCreator/DefaultTheme.css");
+    static File fireTheme = new File(System.getProperty("user.home") + "/Desktop/ThemeCreator/FireTheme.css");
     static FileWriter fileWriter ;
     static List<String> allLines;
+
+    static String defaultBackgroundGradient = "";
+    static String defaultButtonGradient = "";
+    static String defaultButtonHover = "";
+    static String defaultButtonFocused = "";
+    static String defaultTabForeGround = "";
+    static String defaultTabBackground = "";
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -224,24 +222,45 @@ public class MainPaneController implements Initializable {
 
             File f = new File("C:\\Users\\Public\\ThemeCreator\\");
 
-            file2.mkdir();
+            file2.mkdirs();
             f.mkdirs();
-            InputStream in = getClass().getClassLoader().getResourceAsStream("./MainPanes/MainStyle.css");
-            System.out.println(in.read());
+            InputStream in = getClass().getClassLoader().getResourceAsStream("MainPanes/MainStyle.css");
 
             assert in != null;
-
             Files.copy(in, defaultTheme.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
+            in.close();
+            in = getClass().getClassLoader().getResourceAsStream("MainPanes/fire.css");
+            assert in != null;
+            Files.copy(in, fireTheme.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            in.close();
             for(File x : f.listFiles()){
                 x.delete();
             }
             Files.copy(defaultTheme.toPath(), file2.toPath(), StandardCopyOption.REPLACE_EXISTING);
             allLines= Files.readAllLines(file2.toPath());
+            for (int x =0; x < allLines.size() ; x++) {
+                if (allLines.get(x).contains("BackgroundGradient:")) {
+                    defaultBackgroundGradient = allLines.get(x);
+                }
+                if (allLines.get(x).contains("ButtonGradient:")) {
+                    defaultButtonGradient = allLines.get(x);
+                }
+                if (allLines.get(x).contains("ButtonHover:")) {
+                    defaultButtonHover = allLines.get(x);
+                }
+                if (allLines.get(x).contains("ButtonFocused:")) {
+                    defaultButtonFocused = allLines.get(x);
+                }
+                if (allLines.get(x).contains("TabForeGround:")) {
+                    defaultTabForeGround = allLines.get(x);
+                }
+                if (allLines.get(x).contains("TabBackground:")) {
+                    defaultTabBackground = allLines.get(x);
+                }
+            }
             rootPane.getStylesheets().add(tempStyle);
             setUp();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {e.printStackTrace();
         }
 
 
@@ -744,7 +763,7 @@ public class MainPaneController implements Initializable {
         System.out.println("Dragged Complete");
     }
 
-    public void ResetGradient(){
+    public void ResetGradient() throws IOException {
         slider1.setValue(0);
         slider2.setValue(0);
         slider3.setValue(0);
@@ -755,6 +774,56 @@ public class MainPaneController implements Initializable {
         picker4.setValue(Color.WHITE);
         Color1 ="#FFFFFF "; Color2 ="#FFFFFF ";Color3 ="#FFFFFF ";Color4 ="#FFFFFF "; Slider1 = "0%";  Slider2 = "0%";  Slider3 = "0%";
         StyleField.setText("");
+        InputStream in = getClass().getClassLoader().getResourceAsStream("./MainPanes/MainStyle.css");
+        assert in != null;
+        Files.copy(in, defaultTheme.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        in.close();
+        fileWriter = new FileWriter(file2);
+
+        for (int x =0; x < allLines.size() ; x++) {
+            if (ActiveElement.equals("Background")){
+                if (allLines.get(x).contains("BackgroundGradient:")) {
+                    System.out.println("Resetting Background "+defaultBackgroundGradient);
+                    allLines.set(x, defaultBackgroundGradient);
+                }
+            }
+            if (ActiveElement.equals("Button")){
+                if (allLines.get(x).contains("ButtonGradient:")) {
+                    allLines.set(x, defaultButtonGradient);
+                }
+                if (allLines.get(x).contains("ButtonHover:")) {
+                    allLines.set(x, defaultButtonHover);
+                }
+                if (allLines.get(x).contains("ButtonFocused:")) {
+                    allLines.set(x, defaultButtonFocused);
+
+                }
+            }
+            if (ActiveElement.equals("Tab")){
+                if (allLines.get(x).contains("TabForeGround:")) {
+                    allLines.set(x, defaultTabForeGround);
+
+                }
+                if (allLines.get(x).contains("TabBackground:")) {
+                    allLines.set(x, defaultTabBackground);
+                }
+            }
+        }
+        for(String line : allLines){
+            try {
+                fileWriter.write(line);
+                fileWriter.write("\n");
+            } catch (IOException e) {
+e.printStackTrace();
+            }
+        }
+        fileWriter.close();
+        if (ActiveElement.equals("Background")) {
+            DesignPane.setStyle(defaultBackgroundGradient.replace("BackgroundGradient", "-fx-background-color"));
+        }
+
+        rootPane.getStylesheets().remove(0);
+        rootPane.getStylesheets().add(tempStyle);
     }
 
     public void ChooseImage(ActionEvent event) throws Exception {
@@ -1192,45 +1261,56 @@ public class MainPaneController implements Initializable {
     //Table Controls
     public void loadTable() {
         ObservableList<ModelClass> TableData = FXCollections.observableArrayList();
-        TableData.add(new ModelClass(1,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(2,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(3,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(4,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(5,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(6,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(7,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(8,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(9,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(10,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(11,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(12,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(13,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(14,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(15,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(16,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(17,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(18,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(19,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(20,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(21,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(22,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(23,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(24,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(25,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(26,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(27,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(28,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(29,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
-        TableData.add(new ModelClass(30,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ));
+        TableData.add(new ModelClass(1,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(2,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(3,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(4,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(5,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(6,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(7,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(8,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(9,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(10,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(11,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(12,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(13,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(14,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(15,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(16,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(17,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(18,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(19,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(20,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(21,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(22,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(23,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(24,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(25,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(26,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(27,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(28,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(29,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+        TableData.add(new ModelClass(30,"James Chukwuedo",	"8142605775",	"3,GANIYU ENITAN STREET OPPOSITE ORCHID HOTEL ,LEKKI 2ND TOLL GATE" ,  false ));
+
+        Table.setEditable(true);
+
+        col5.setCellValueFactory( new PropertyValueFactory<>("checked"));
 
         Table.setItems(null);
         col1.setCellValueFactory(new PropertyValueFactory<>("num"));
         col2.setCellValueFactory(new PropertyValueFactory<>("col1"));
         col3.setCellValueFactory(new PropertyValueFactory<>("col2"));
         col4.setCellValueFactory(new PropertyValueFactory<>("col3"));
+        col5.setCellFactory(CheckBoxTableCell.forTableColumn(col5));
+        for(ModelClass a : TableData){
+            a.checkedProperty().addListener((obs) -> {
+                System.out.println("a.getChecked()" + a.getChecked() );           } );
+        }
+
 
 
         Table.setItems(TableData);
+        col1.getCellObservableValue(1).addListener(e-> {System.out.println("Testt");});
 
 
     }
@@ -1459,6 +1539,9 @@ public class MainPaneController implements Initializable {
     }
 
 
+    public void testAction(ActionEvent event) {
+        System.out.println(col1.getCellObservableValue(0).getValue());
+    }
 }
 
 

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ThemeCreator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThemeCreator_jar</output-path>
+    <root id="archive" name="ThemeCreator.jar">
+      <element id="module-output" name="ThemeCreator" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../libary/jfoenix-8.0.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../libary/fontawesomefx-8.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

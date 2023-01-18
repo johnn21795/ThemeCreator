@@ -147,7 +147,7 @@
                                           </VBox>
                                           <VBox maxHeight="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <JFXButton fx:id="gButton1" prefHeight="52.0" prefWidth="161.0" text="Glyph Button">
+                                                <JFXButton fx:id="gButton1" prefHeight="52.0" onAction="#testAction" prefWidth="161.0" text="Glyph Button">
                                                    <graphic>
                                                       <FontAwesomeIcon fx:id="glyph1" glyphName="HOME" size="3em" />
                                                    </graphic>
@@ -194,6 +194,7 @@
                                                 <TableColumn fx:id="col2" prefWidth="250.0" text="Name" />
                                                 <TableColumn fx:id="col3" prefWidth="200.0" text="Phone" />
                                                 <TableColumn fx:id="col4" prefWidth="300.0" text="Address" />
+                                                <TableColumn fx:id="col5" prefWidth="300.0" text="Select" />
                                              </columns>
                                           </TableView>
                                        </content>
